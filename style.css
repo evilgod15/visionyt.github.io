@@ -1,0 +1,135 @@
+/* Reset some default styles */
+body, h1, p, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    background: radial-gradient(circle at 20% 30%, #3a8dde 0%, #1e3c72 60%, #181c2b 100%);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: fadeInBody 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+    overflow-x: hidden;
+    position: relative;
+    perspective: 1200px;
+    /* Add animated floating shapes */
+}
+body::before, body::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.5;
+    pointer-events: none;
+    animation: floatShape 12s infinite alternate;
+}
+body::before {
+    width: 420px;
+    height: 420px;
+    background: linear-gradient(135deg, #00ffe7 0%, #1e3c72 100%);
+    top: 10%;
+    left: -10%;
+    animation-delay: 0s;
+}
+body::after {
+    width: 320px;
+    height: 320px;
+    background: linear-gradient(135deg, #ff6bcb 0%, #2a5298 100%);
+    bottom: 5%;
+    right: -8%;
+    animation-delay: 4s;
+}
+
+@keyframes floatShape {
+    0% { transform: translateY(0) scale(1) rotate(0deg);}
+    100% { transform: translateY(40px) scale(1.1) rotate(20deg);}
+}
+
+/* 3D effect for main container */
+.main-container {
+    background: rgba(34, 49, 89, 0.85);
+    box-shadow: 0 12px 40px 0 rgba(30,60,114,0.45), 0 2px 8px 0 rgba(0,0,0,0.18);
+    border-radius: 24px;
+    padding: 48px 40px;
+    backdrop-filter: blur(6px);
+    transform-style: preserve-3d;
+    transform: rotateY(-8deg) rotateX(4deg) scale(1.01);
+    transition: transform 0.4s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.4s;
+    position: relative;
+    z-index: 1;
+}
+.main-container:hover {
+    transform: rotateY(0deg) rotateX(0deg) scale(1.03);
+    box-shadow: 0 24px 60px 0 rgba(30,60,114,0.55), 0 4px 16px 0 rgba(0,0,0,0.22);
+}
+
+/* 3D glassy button */
+.main-container button#create-profile,
+.main-container a.button#create-profile {
+    margin-left: 32px;
+    background: linear-gradient(135deg, #00ffe7 0%, #2a5298 100%);
+    color: #181c2b;
+    border: none;
+    border-radius: 16px;
+    padding: 16px 36px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    box-shadow: 0 6px 24px 0 rgba(0,255,231,0.18), 0 1.5px 4px 0 rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 2px 8px rgba(0,255,231,0.12);
+    outline: none;
+    transform: translateZ(10px);
+}
+.main-container button#create-profile:hover,
+.main-container a.button#create-profile:hover {
+    background: linear-gradient(135deg, #ff6bcb 0%, #00ffe7 100%);
+    color: #fff;
+    transform: scale(1.07) translateZ(20px);
+    box-shadow: 0 12px 32px 0 rgba(255,107,203,0.22), 0 3px 12px 0 rgba(0,0,0,0.18);
+}
+
+/* Make the footer span the full width of the screen */
+footer {
+    width: 100vw;
+    left: 0;
+    right: 0;
+    position: fixed;
+    bottom: 0;
+    background: rgba(30, 60, 114, 0.95);
+    color: #fff;
+    text-align: center;
+    padding: 16px 0;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.15);
+    z-index: 100;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    animation: slideUpFooter 1s cubic-bezier(.68,-0.55,.27,1.55);
+    backdrop-filter: blur(3px);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    text-shadow: 0 2px 8px rgba(30,60,114,0.18);
+    box-shadow: 0 -8px 32px 0 rgba(30,60,114,0.25), 0 -2px 8px 0 rgba(0,0,0,0.12);
+}
+
+@keyframes slideUpFooter {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

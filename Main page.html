@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>S</label>uper Vision Yt</title>
+    <link rel="icon" type="image/png" href="Vision.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+        html {
+            scroll-behavior: smooth;
+        }
+        body { 
+            font-family: 'Orbitron', Arial, sans-serif; 
+            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+            color: #fff; 
+            margin: 0; 
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .particles {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+        header {
+            background: linear-gradient(90deg, #23272a 60%, #00ffea 100%);
+            display: flex;
+            align-items: center;
+            padding: 24px 20px;
+            box-shadow: 0 4px 16px #00ffea33;
+            border-bottom: 4px solid #00ffea;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: -60px; left: -60px;
+            width: 180px; height: 180px;
+            background: radial-gradient(circle, #00ffea55 0%, transparent 80%);
+            animation: header-glow 3s cubic-bezier(.77,0,.18,1) infinite alternate;
+            z-index: 1;
+        }
+        @keyframes header-glow {
+            0% { opacity: 0.7; transform: scale(1);}
+            100% { opacity: 1; transform: scale(1.2);}
+        }
+        header img {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            margin-right: 24px;
+            border: 3px solid #00ffea;
+            box-shadow: 0 0 16px #00ffea88;
+            background: #181818;
+            animation: neon-glow 2s cubic-bezier(.77,0,.18,1) infinite alternate;
+            z-index: 2;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 2px;
+            color: #00ffea;
+            text-shadow: 0 2px 12px #00ffea55, 0 0 2px #000;
+            /* animation: text-flicker 2.5s cubic-bezier(.77,0,.18,1) infinite alternate; */
+            z-index: 2;
+        }
+        /* Removed text-flicker animation */
+        /*
+        @keyframes text-flicker {
+            0%, 100% { opacity: 1; text-shadow: 0 2px 12px #00ffea55, 0 0 2px #000;}
+            45% { opacity: 0.7; text-shadow: 0 2px 24px #00ffea99, 0 0 8px #00ffea;}
+            50% { opacity: 0.4; }
+            55% { opacity: 0.7; }
+        }
+        */
+        nav {
+            background: #181c22;
+            padding: 12px 0;
+            text-align: center;
+            border-bottom: 2px solid #00ffea;
+            box-shadow: 0 2px 8px #00ffea22;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            animation: nav-slide 1.2s cubic-bezier(.77,0,.18,1);
+        }
+        @keyframes nav-slide {
+            0% { transform: translateY(-80px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 22px;
+            font-weight: bold;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: 
+                color 0.4s cubic-bezier(.77,0,.18,1),
+                background 0.4s cubic-bezier(.77,0,.18,1),
+                box-shadow 0.4s cubic-bezier(.77,0,.18,1),
+                transform 0.4s cubic-bezier(.77,0,.18,1);
+            position: relative;
+        }
+        nav a:hover {
+            color: #181c22;
+            background: #00ffea;
+            box-shadow: 0 0 8px #00ffea99;
+            transform: scale(1.08) rotate(-2deg);
+        }
+        nav a::after {
+            content: '';
+            display: block;
+            margin: 0 auto;
+            width: 0%;
+            height: 2px;
+            background: #00ffea;
+            transition: width 0.4s cubic-bezier(.77,0,.18,1);
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        main {
+            max-width: 950px;
+            margin: 36px auto;
+            background: rgba(24,28,34,0.98);
+            padding: 36px;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px #00ffea22;
+            border: 2px solid #00ffea55;
+            position: relative;
+            z-index: 1;
+            animation: main-fadein 1.2s cubic-bezier(.77,0,.18,1);
+        }
+        @keyframes main-fadein {
+            0% { opacity: 0; transform: scale(0.97);}
+            100% { opacity: 1; transform: scale(1);}
+        }
+        section {
+            margin-bottom: 44px;
+            /* opacity: 0;
+            transform: translateY(40px);
+            animation: section-in 1.2s cubic-bezier(.77,0,.18,1) forwards; */
+            opacity: 1;
+            transform: none;
+            animation: none;
+        }
+        section.animated {
+            /* animation: section-pop 1.5s cubic-bezier(.77,0,.18,1) forwards; */
+            animation: none;
+        }
+        /* Removed section-pop and section-in animations */
+        /*
+        @keyframes section-pop {
+            0% { opacity: 0; transform: scale(0.95) translateY(40px);}
+            100% { opacity: 1; transform: scale(1) translateY(0);}
+        }
+        section:nth-child(1) { animation-delay: 0.2s;}
+        section:nth-child(2) { animation-delay: 0.4s;}
+        section:nth-child(3) { animation-delay: 0.6s;}
+        section:nth-child(4) { animation-delay: 0.8s;}
+        section:nth-child(5) { animation-delay: 1s;}
+        section:nth-child(6) { animation-delay: 1.2s;}
+        @keyframes section-in {
+            to { opacity: 1; transform: translateY(0);}
+        }
+        */
+        h2 {
+            color: #00ffea;
+            text-shadow: 0 2px 8px #00ffea33;
+            font-size: 2em;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            /* animation: h2-pop 1s cubic-bezier(.77,0,.18,1); */
+        }
+        /* Removed h2-pop animation */
+        /*
+        @keyframes h2-pop {
+            0% { transform: scale(0.8); opacity: 0;}
+            100% { transform: scale(1); opacity: 1;}
+        }
+        */
+        .social-links a {
+            display: inline-block;
+            margin-right: 18px;
+            color: #00ffea;
+            font-size: 1.3em;
+            background: #181c22;
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: 2px solid #00ffea55;
+            box-shadow: 0 2px 8px #00ffea22;
+            transition: background 0.4s cubic-bezier(.77,0,.18,1), color 0.4s cubic-bezier(.77,0,.18,1), box-shadow 0.4s cubic-bezier(.77,0,.18,1), transform 0.4s cubic-bezier(.77,0,.18,1);
+            position: relative;
+            overflow: hidden;
+        }
+        .social-links a:hover {
+            background: #00ffea;
+            color: #181c22;
+            box-shadow: 0 0 12px #00ffea99;
+            transform: scale(1.1) rotate(-2deg);
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-top: 22px;
+            justify-content: center;
+        }
+        .gallery img {
+            width: 220px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px #00ffea33, 0 0 0 4px #181c22;
+            background: #181818;
+            border: 2px solid #00ffea55;
+            transition: transform 0.4s cubic-bezier(.77,0,.18,1), box-shadow 0.4s cubic-bezier(.77,0,.18,1), filter 0.4s cubic-bezier(.77,0,.18,1);
+            filter: grayscale(0.2) brightness(0.95);
+            cursor: pointer;
+            animation: gallery-float 4s cubic-bezier(.77,0,.18,1) infinite alternate;
+        }
+        .gallery img:hover {
+            transform: scale(1.13) rotate(-3deg);
+            box-shadow: 0 8px 32px #00ffea77, 0 0 0 4px #00ffea;
+            z-index: 2;
+            filter: grayscale(0) brightness(1.1);
+            animation: gallery-pop 0.7s cubic-bezier(.77,0,.18,1);
+        }
+        @keyframes gallery-float {
+            0% { transform: translateY(0);}
+            100% { transform: translateY(-10px);}
+        }
+        @keyframes gallery-pop {
+            0% { transform: scale(1) rotate(0);}
+            100% { transform: scale(1.13) rotate(-3deg);}
+        }
+        .gallery img:nth-child(2n) { animation-delay: 0.7s;}
+        .gallery img:nth-child(3n) { animation-delay: 1.2s;}
+        .gallery img:nth-child(4n) { animation-delay: 1.7s;}
+        .gallery img:nth-child(5n) { animation-delay: 2.2s;}
+        .gallery img:nth-child(6n) { animation-delay: 2.7s;}
+        .channel-facts {
+            background: linear-gradient(90deg, #23272a 70%, #00ffea22 100%);
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 24px;
+            border: 2px solid #00ffea55;
+            box-shadow: 0 2px 12px #00ffea22;
+            animation: facts-glow 3s cubic-bezier(.77,0,.18,1) infinite alternate;
+        }
+        @keyframes facts-glow {
+            0%,100% { box-shadow: 0 2px 12px #00ffea22;}
+            50% { box-shadow: 0 2px 32px #00ffea77;}
+        }
+        .channel-facts ul {
+            margin: 0;
+            padding-left: 24px;
+        }
+        .channel-facts li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 18px;
+            animation: fact-pop 1s cubic-bezier(.77,0,.18,1);
+        }
+        @keyframes fact-pop {
+            0% { opacity: 0; transform: translateX(-20px);}
+            100% { opacity: 1; transform: translateX(0);}
+        }
+        .channel-facts li::before {
+            content: "👉";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        ul li {
+            margin-bottom: 10px;
+            padding-left: 18px;
+            position: relative;
+        }
+        ul li::before {
+            content: "▶";
+            color: #00ffea;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        a {
+            transition: color 0.4s cubic-bezier(.77,0,.18,1);
+        }
+        a:active {
+            color: #00ffea;
+        }
+        .contact-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #00ffea 60%, #23272a 100%);
+            color: #181c22;
+            font-weight: bold;
+            padding: 12px 28px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1.1em;
+            margin-top: 12px;
+            box-shadow: 0 2px 12px #00ffea55;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.4s cubic-bezier(.77,0,.18,1), color 0.4s cubic-bezier(.77,0,.18,1), box-shadow 0.4s cubic-bezier(.77,0,.18,1), transform 0.4s cubic-bezier(.77,0,.18,1);
+            animation: btn-pulse 2.5s cubic-bezier(.77,0,.18,1) infinite alternate;
+        }
+        .contact-btn::after {
+            content: '';
+            position: absolute;
+            left: -60px; top: 0;
+            width: 40px; height: 100%;
+            background: linear-gradient(120deg, #fff 0%, #00ffea 100%);
+            opacity: 0.3;
+            transform: skewX(-20deg);
+            animation: btn-shine 3s cubic-bezier(.77,0,.18,1) infinite;
+        }
+        @keyframes btn-shine {
+            0% { left: -60px; }
+            60% { left: 120%; }
+            100% { left: 120%; }
+        }
+        .contact-btn:hover {
+            background: #00ffea;
+            color: #23272a;
+            box-shadow: 0 4px 24px #00ffea99;
+            transform: scale(1.07);
+        }
+        @keyframes btn-pulse {
+            0%,100% { box-shadow: 0 2px 12px #00ffea55;}
+            50% { box-shadow: 0 4px 32px #00ffea99;}
+        }
+        .scroll-down {
+            position: absolute;
+            left: 50%;
+            bottom: -30px;
+            transform: translateX(-50%);
+            font-size: 2.5em;
+            color: #00ffea;
+            animation: arrow-bounce 2s cubic-bezier(.77,0,.18,1) infinite;
+            z-index: 5;
+            opacity: 0.7;
+            cursor: pointer;
+            filter: drop-shadow(0 0 8px #00ffea88);
+            transition: color 0.4s cubic-bezier(.77,0,.18,1), filter 0.4s cubic-bezier(.77,0,.18,1);
+        }
+        .scroll-down:hover {
+            color: #fff;
+            filter: drop-shadow(0 0 16px #00ffea);
+        }
+        @keyframes arrow-bounce {
+            0%,100% { transform: translateX(-50%) translateY(0);}
+            50% { transform: translateX(-50%) translateY(12px);}
+        }
+        .leaderboard-highlight {
+            animation: leaderboard-pop 1.5s cubic-bezier(.77,0,.18,1);
+            background: linear-gradient(90deg, #00ffea33 0%, #23272a 100%);
+        }
+        @keyframes leaderboard-pop {
+            0% { background: #23272a; transform: scale(0.95);}
+            60% { background: #00ffea33; transform: scale(1.05);}
+            100% { background: linear-gradient(90deg, #00ffea33 0%, #23272a 100%); transform: scale(1);}
+        }
+        footer {
+            text-align: center;
+            padding: 22px;
+            background: #23272a;
+            color: #00ffea;
+            margin-top: 44px;
+            font-family: 'Orbitron', Arial, sans-serif;
+            letter-spacing: 1px;
+            border-top: 2px solid #00ffea55;
+            box-shadow: 0 -2px 8px #00ffea22;
+            animation: footer-fadein 2s cubic-bezier(.77,0,.18,1);
+        }
+        @keyframes footer-fadein {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes neon-glow {
+            0%, 100% { box-shadow: 0 0 16px #00ffea88, 0 0 32px #00ffea44; }
+            50% { box-shadow: 0 0 32px #00ffea, 0 0 64px #00ffea55; }
+        }
+        @media (max-width: 1000px) {
+            main { padding: 18px;}
+            .gallery img { width: 140px; height: 80px;}
+        }
+        @media (max-width: 700px) {
+            header { flex-direction: column; align-items: flex-start; }
+            header img { margin-bottom: 12px; }
+            h1 { font-size: 2em;}
+            nav a { margin: 0 8px; font-size: 1em;}
+            main { padding: 8px;}
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+        nav a {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <canvas class="particles"></canvas>
+    <header>
+        <img src="Vision.png" alt="Super Vision YT Logo">
+        <h1>Super Vision Yt</h1>
+        <div class="scroll-down">&#8595;</div>
+    </header>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#content">Content</a>
+        <a href="#facts">Channel Facts</a>
+        <a href="#social">Social Links</a>
+        <a href="#contact">Contact</a>
+        <a href="#leaderboard">Leaderboard</a>
+        <a href="#faq">FAQ</a>
+    </nav>
+    <main>
+        <section id="about">
+            <h2>About Super Vision YT</h2>
+            <p>
+               My channel is a fun gaming channel on YouTube that mainly shares Minecraft videos and live streams. I also plays games like Fortnite and horror games, keeping the content exciting and fresh. With cool gameplay and fun live chats, it’s a great channel for gaming fans. 
+            </p>
+            <p>
+                My channel is known for engaging gaming content, creative challenges, and a vibrant community. The channel is all about fun, learning, and connecting with fans worldwide!
+            </p>
+        </section>
+        <section id="content">
+            <h2>Channel Content</h2>
+            <ul>
+                <li>Gaming videos and live streams.</li>
+                <li>Tutorials and walkthroughs.</li>
+                <li>Funny moments and highlights.</li>
+                <li>Community challenges and events.</li>
+                <li>Behind-the-scenes content.</li>
+                <li>Funny snips of my own videos.</li>
+                <li>Other games like fortnite, horrer games and more</li>
+            </ul>
+        </section>
+        <section id="facts" class="channel-facts">
+            <h2>Fun Facts About the Channel</h2>
+            <ul>
+                <li>.  Started in 31 December 2001.</li>
+                <li>.  Has over 780 subscribers.</li>
+                <li>.  Known for interactive live streams and giveaways.</li>
+                <li>.  Community-driven content ideas are often featured.</li>
+                <li>.  Play with the viewers.</li>
+            </ul>
+        </section>
+        <section id="social">
+            <h2>Social Links</h2>
+            <div class="social-links">
+                <a href="https://www.youtube.com/@superemeboi1779" target="_blank">YouTube</a>
+                <a href="https://discord.com/invite/AVaWF44h9D" target="_blank">Discord Server</a>
+                <a href="instagram.com/super_vision_yt_og?igsh=ejd5bDlrMHhka3Rq" target="_blank">Instagram</a>
+            </div>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>
+                Want to give some ideas or some suggestions? Send a message to 👇
+            </p>
+            <a href="buisnessvision234@gmail.com" class="contact-btn" style="display:block;width:100%;text-align:center;box-sizing:border-box;">
+                Click to EMAIL
+            </a>
+        </section>
+        <section id="leaderboard">
+            <h2>Oldest Subscribers of the channel </h2>
+            <table style="width:100%;background:#181c22;border-radius:10px;box-shadow:0 2px 8px #00ffea22;border:2px solid #00ffea33;overflow:hidden;">
+                <thead>
+                    <tr style="color:#00ffea;font-size:1.1em;">
+                        <th style="padding:10px;">Rank</th>
+                        <th style="padding:10px;">Username</th>
+                        <th style="padding:10px;">Message to them</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <tr>
+                        <td style="padding:10px;">1</td>
+                        <td style="padding:10px;">Ninja Gaming 1669</td>
+                        <td style="padding:10px;">Thanks</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px;">2</td>
+                        <td style="padding:10px;">Gojo :)</td>
+                        <td style="padding:10px;">Thanks</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px;">3</td>
+                        <td style="padding:10px;">goji</td>
+                        <td style="padding:10px;">Thanks</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px;">4</td>
+                        <td style="padding:10px;">Evil_god15</td>
+                        <td style="padding:10px;">Thanks</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="faq">
+            <h2>FAQ</h2>
+            <div style="background:#181c22;padding:18px 24px;border-radius:10px;border:2px solid #00ffea33;box-shadow:0 2px 8px #00ffea22;">
+                <details>
+                    <summary style="color:#00ffea;cursor:pointer;font-size:1.1em;">How can I join the community events?</summary>
+                    <p style="margin-left:18px;">Follow the channel on Discord and YouTube for announcements...</p>
+                </details>
+                <details>
+                    <summary style="color:#00ffea;cursor:pointer;font-size:1.1em;">Can I submit fan art?</summary>
+                    <p style="margin-left:18px;">Absolutely! Send your fan art via Instagram or Discord, and it might be featured in the gallery.</p>
+                </details>
+                <details>
+                    <summary style="color:#00ffea;cursor:pointer;font-size:1.1em;">How can I talk to you directlly.?</summary>
+                    <p style="margin-left:18px;">Join dicord and come to public vc i comes on every live or sometime to talk o fans!</p>
+                </details>
+            </div>
+        </section>
+    </main>
+    <footer style="padding: 6px 0;">
+        <img src="Vision.png" alt="Super Vision YT Logo" style="height:22px;vertical-align:middle;margin-right:8px;border-radius:6px;border:1.5px solid #00ffea55;box-shadow:0 0 5px #00ffea22;">
+        &copy copyright; OWN BY Super Vision YT.
+    <span style="position:fixed;bottom:1px;right:10px;font-size:12px;color:#00ffea88;z-index:9999;pointer-events:none;font-family:Orbitron,Arial,sans-serif;">Made by Vyom Sharma (Evil_god15)  </span>
+    </footer>
+    <script>
+    // Animated background particles
+    const canvas = document.querySelector('.particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    function createParticles() {
+        particles = [];
+        for (let i = 0; i < 60; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 2 + 1,
+                dx: (Math.random() - 0.5) * 0.7,
+                dy: (Math.random() - 0.5) * 0.7,
+                alpha: Math.random() * 0.7 + 0.2,
+                color: `hsl(${Math.random()*360},100%,60%)`
+            });
+        }
+    }
+    createParticles();
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let p of particles) {
+            ctx.save();
+            ctx.globalAlpha = p.alpha;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.shadowColor = p.color;
+            ctx.shadowBlur = 12;
+            ctx.fill();
+            ctx.restore();
+            p.x += p.dx * 0.7; // slower, smoother
+            p.y += p.dy * 0.7;
+            if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        }
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+    window.addEventListener('resize', createParticles);
+
+    // Animate sections on scroll -- removed, since text animation is removed
+    /*
+    const sections = document.querySelectorAll('main > section');
+    function animateSectionsOnScroll() {
+        const trigger = window.innerHeight * 0.85;
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top < trigger) {
+                section.classList.add('animated');
+            }
+        });
+    }
+    window.addEventListener('scroll', animateSectionsOnScroll);
+    animateSectionsOnScroll();
+    */
+
+    // Gallery image popup modal
+    const gallery = document.querySelector('.gallery');
+    if (gallery) {
+        gallery.addEventListener('click', function(e) {
+            if (e.target.tagName === 'IMG') {
+                let src = e.target.src;
+                let alt = e.target.alt;
+                let modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = 0;
+                modal.style.left = 0;
+                modal.style.width = '100vw';
+                modal.style.height = '100vh';
+                modal.style.background = 'rgba(0,0,0,0.85)';
+                modal.style.display = 'flex';
+                modal.style.alignItems = 'center';
+                modal.style.justifyContent = 'center';
+                modal.style.zIndex = 9999;
+                modal.style.transition = 'background 0.4s cubic-bezier(.77,0,.18,1)';
+                modal.innerHTML = `<img src="${src}" alt="${alt}" style="max-width:90vw;max-height:80vh;border-radius:18px;box-shadow:0 0 32px #00ffea99;border:4px solid #00ffea;animation: gallery-pop 0.7s cubic-bezier(.77,0,.18,1);">`;
+                modal.onclick = () => document.body.removeChild(modal);
+                document.body.appendChild(modal);
+            }
+        });
+    }
+
+    // Scroll down arrow smooth scroll
+    document.querySelector('.scroll-down').onclick = function() {
+        window.scrollTo({ top: window.innerHeight * 0.6, behavior: 'smooth' });
+    };
+
+    // Animate leaderboard rows with highlight
+    const leaderboardRows = document.querySelectorAll('#leaderboard-body tr');
+    leaderboardRows.forEach((row, i) => {
+        row.style.opacity = 0;
+        row.style.transform = 'translateY(30px)';
+        setTimeout(() => {
+            row.style.transition = 'all 1s cubic-bezier(.77,0,.18,1)';
+            row.style.opacity = 1;
+            row.style.transform = 'translateY(0)';
+            row.classList.add('leaderboard-highlight');
+            setTimeout(() => row.classList.remove('leaderboard-highlight'), 1500);
+        }, 400 + i * 350);
+    });
+
+    // FAQ details animation -- removed h2-pop animation
+    /*
+    document.querySelectorAll('#faq details').forEach((details, i) => {
+        details.addEventListener('toggle', function() {
+            if (details.open) {
+                details.querySelector('p').style.animation = 'h2-pop 0.7s cubic-bezier(.77,0,.18,1)';
+            }
+        });
+    });
+    */
+    </script>
+</body>
+<!-- Login Modal HTML -->
+<div id="login-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);z-index:10000;align-items:center;justify-content:center;">
+    <div style="background:#181c22;padding:32px 28px 18px 28px;border-radius:14px;box-shadow:0 4px 32px #00ffea99;min-width:320px;max-width:90vw;position:relative;">
+        <button id="close-login-modal" style="position:absolute;top:10px;right:14px;background:none;border:none;font-size:1.5em;color:#00ffea;cursor:pointer;">&times;</button>
+        <h2 style="color:#00ffea;text-align:center;margin-bottom:18px;font-size:1.3em;">Create your profile</h2>
+        <form id="login-form" autocomplete="off">
+            <div style="margin-bottom:14px;">
+                <input id="login-username" type="text" placeholder="Username or Email" required style="width:100%;padding:10px 12px;border-radius:6px;border:1.5px solid #00ffea55;background:#23272a;color:#fff;font-size:1em;">
+            </div>
+            <div style="margin-bottom:14px;">
+                <input type="password" placeholder="Password" required style="width:100%;padding:10px 12px;border-radius:6px;border:1.5px solid #00ffea55;background:#23272a;color:#fff;font-size:1em;">
+            </div>
+            <div style="display:flex;align-items:center;margin-bottom:16px;">
+                <input type="checkbox" id="remember-me" style="accent-color:#00ffea;margin-right:7px;">
+                <label for="remember-me" style="color:#00ffea;font-size:0.98em;cursor:pointer;user-select:none;">Remember me</label>
+            </div>
+            <button type="submit" style="width:100%;background:linear-gradient(90deg,#00ffea 60%,#23272a 100%);color:#181c22;font-weight:bold;padding:10px 0;border-radius:7px;border:none;font-size:1.1em;box-shadow:0 2px 12px #00ffea55;cursor:pointer;transition:background 0.3s;">CREATE PROFILE</button>
+        </form>
+    </div>
+</div>
+
+<!-- Profile Button (fixed top right) -->
+<button id="login-btn" style="position:fixed;top:22px;right:32px;z-index:10001;background:linear-gradient(90deg,#00ffea 60%,#23272a 100%);color:#181c22;font-weight:bold;padding:10px 26px;border-radius:8px;border:none;font-size:1.1em;box-shadow:0 2px 12px #00ffea55;cursor:pointer;transition:background 0.3s;">CREATE PROFILE</button>
+
+<!-- Profile Box (hidden by default) -->
+<div id="profile-box" style="display:none;position:fixed;top:22px;right:32px;z-index:10001;background:#181c22;color:#00ffea;padding:10px 22px 10px 14px;border-radius:10px;box-shadow:0 2px 12px #00ffea55;align-items:center;min-width:120px;max-width:220px;display:flex;gap:10px;">
+    <div style="width:38px;height:38px;border-radius:50%;background:#23272a;display:flex;align-items:center;justify-content:center;font-size:1.3em;font-weight:bold;border:2px solid #00ffea55;box-shadow:0 0 8px #00ffea22;" id="profile-avatar">U</div>
+    <span id="profile-username" style="font-size:1.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:90px;">User</span>
+    <button id="logout-btn" title="Logout" style="margin-left:8px;background:none;border:none;color:#00ffea;font-size:1.2em;cursor:pointer;">&#x2716;</button>
+</div>
+
+<script>
+// Utility: get storage key for avatar per user
+function getAvatarKey(username) {
+    return 'profileAvatar_' + encodeURIComponent(username || '');
+}
+
+// Show profile modal
+document.getElementById('login-btn').onclick = function() {
+    document.getElementById('login-modal').style.display = 'flex';
+    document.getElementById('login-form').style.display = '';
+};
+// Close modal
+document.getElementById('close-login-modal').onclick = function() {
+    document.getElementById('login-modal').style.display = 'none';
+};
+// Close modal on outside click
+document.getElementById('login-modal').onclick = function(e) {
+    if (e.target === this) this.style.display = 'none';
+};
+
+/**
+ * Helper: show profile box
+ * @param {string} username
+ */
+function showProfile(username) {
+    document.getElementById('login-btn').style.display = 'none';
+    document.getElementById('profile-box').style.display = 'flex';
+    document.getElementById('profile-username').textContent = username;
+    // Avatar: first letter
+    const avatar = document.getElementById('profile-avatar');
+    // Always use per-user avatar key
+    let avatarKey = getAvatarKey(username);
+    let avatarData = window._rememberMe
+        ? localStorage.getItem(avatarKey)
+        : sessionStorage.getItem(avatarKey);
+    if (avatarData) {
+        avatar.textContent = '';
+        avatar.style.backgroundImage = `url('${avatarData}')`;
+        avatar.style.backgroundSize = 'cover';
+        avatar.style.backgroundPosition = 'center';
+        avatar.style.backgroundRepeat = 'no-repeat';
+    } else {
+        avatar.textContent = username.charAt(0).toUpperCase();
+        avatar.style.backgroundImage = '';
+        avatar.style.backgroundSize = '';
+        avatar.style.backgroundPosition = '';
+        avatar.style.backgroundRepeat = '';
+    }
+    avatar.style.cursor = 'pointer';
+
+    // Remove any previous input
+    if (avatar.querySelector('input[type="file"]')) {
+        avatar.removeChild(avatar.querySelector('input[type="file"]'));
+    }
+
+    // Add click event to change avatar image
+    avatar.onclick = function () {
+        let fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.style.display = 'none';
+        fileInput.onchange = function (e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (evt) {
+                    avatar.textContent = '';
+                    avatar.style.backgroundImage = `url('${evt.target.result}')`;
+                    avatar.style.backgroundSize = 'cover';
+                    avatar.style.backgroundPosition = 'center';
+                    avatar.style.backgroundRepeat = 'no-repeat';
+                    // Save avatar to storage for this user
+                    if (window._rememberMe) {
+                        localStorage.setItem(avatarKey, evt.target.result);
+                        sessionStorage.removeItem(avatarKey);
+                    } else {
+                        sessionStorage.setItem(avatarKey, evt.target.result);
+                        localStorage.removeItem(avatarKey);
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+        document.body.appendChild(fileInput);
+        fileInput.click();
+        // Remove input after use
+        fileInput.addEventListener('change', function () {
+            setTimeout(() => {
+                if (fileInput.parentNode) fileInput.parentNode.removeChild(fileInput);
+            }, 500);
+        });
+    };
+
+    // Save to sessionStorage or localStorage
+    if (window._rememberMe) {
+        localStorage.setItem('profileUsername', username);
+        // Move avatar from sessionStorage to localStorage if needed
+        let sessionAvatar = sessionStorage.getItem(avatarKey);
+        if (sessionAvatar) {
+            localStorage.setItem(avatarKey, sessionAvatar);
+            sessionStorage.removeItem(avatarKey);
+        }
+    } else {
+        sessionStorage.setItem('profileUsername', username);
+        // Move avatar from localStorage to sessionStorage if needed
+        let localAvatar = localStorage.getItem(avatarKey);
+        if (localAvatar) {
+            sessionStorage.setItem(avatarKey, localAvatar);
+            localStorage.removeItem(avatarKey);
+        }
+    }
+}
+
+// Helper: hide profile box
+function hideProfile() {
+    document.getElementById('profile-box').style.display = 'none';
+    document.getElementById('login-btn').style.display = '';
+    // Remove all possible avatars for current user
+    let username = localStorage.getItem('profileUsername') || sessionStorage.getItem('profileUsername');
+    if (username) {
+        let avatarKey = getAvatarKey(username);
+        sessionStorage.removeItem(avatarKey);
+        localStorage.removeItem(avatarKey);
+    }
+    sessionStorage.removeItem('profileUsername');
+    localStorage.removeItem('profileUsername');
+}
+
+// Profile form submit
+document.getElementById('login-form').onsubmit = function(e) {
+    e.preventDefault();
+    var username = document.getElementById('login-username').value.trim();
+    if (!username) username = "User";
+    // Check remember me
+    window._rememberMe = document.getElementById('remember-me').checked;
+    // Save rememberMe flag for later
+    if (window._rememberMe) {
+        localStorage.setItem('rememberMe', '1');
+    } else {
+        localStorage.removeItem('rememberMe');
+    }
+    showProfile(username);
+    document.getElementById('login-modal').style.display = 'none';
+};
+
+// Logout button
+document.getElementById('logout-btn').onclick = function() {
+    hideProfile();
+    window._rememberMe = false;
+    localStorage.removeItem('rememberMe');
+};
+
+// On page load, show/hide profile or button based on session/local storage
+window.addEventListener('DOMContentLoaded', function() {
+    // Check rememberMe flag
+    window._rememberMe = localStorage.getItem('rememberMe') === '1';
+    var username = window._rememberMe
+        ? localStorage.getItem('profileUsername')
+        : sessionStorage.getItem('profileUsername');
+    if (username) {
+        showProfile(username);
+        // Restore avatar if set
+        let avatarKey = getAvatarKey(username);
+        let avatarData = window._rememberMe
+            ? localStorage.getItem(avatarKey)
+            : sessionStorage.getItem(avatarKey);
+        if (avatarData) {
+            const avatar = document.getElementById('profile-avatar');
+            avatar.textContent = '';
+            avatar.style.backgroundImage = `url('${avatarData}')`;
+            avatar.style.backgroundSize = 'cover';
+            avatar.style.backgroundPosition = 'center';
+            avatar.style.backgroundRepeat = 'no-repeat';
+        }
+    } else {
+        hideProfile();
+    }
+});
+</script>
+  
+
+</html>
